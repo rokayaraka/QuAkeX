@@ -1,3 +1,4 @@
+import 'package:earthquake_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -12,11 +13,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       builder: EasyLoading.init(),
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hello, Earthquake App!'),
-        ),
-      ),
+      home: const HomePage(),
     );
   }
 }

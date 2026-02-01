@@ -357,11 +357,11 @@ class Properties {
       'place': place,
       'time': time,
       'updated': updated,
-      'tz': tz.toMap(),
+      'tz': tz,
       'url': url,
       'detail': detail,
-      'felt': felt.toMap(),
-      'cdi': cdi.toMap(),
+      'felt': felt,
+      'cdi': cdi,
       'mmi': mmi,
       'alert': alert,
       'status': status,
@@ -372,7 +372,7 @@ class Properties {
       'ids': ids,
       'sources': sources,
       'types': types,
-      'nst': nst.toMap(),
+      'nst': nst,
       'dmin': dmin,
       'rms': rms,
       'gap': gap,
@@ -486,17 +486,53 @@ class Properties {
   }
 }
 
+// ...existing code...
 class Tz {
-}
+  final int? value;
+  Tz({this.value});
 
+  factory Tz.fromMap(dynamic map) => Tz(value: map as int?);
+
+  dynamic toMap() => value;
+}
+// ...existing code...
+
+// ...existing code...
 class Felt {
-}
+  final int? value;
+  Felt({this.value});
 
+  factory Felt.fromMap(dynamic map) => Felt(value: map as int?);
+
+  dynamic toMap() => value;
+}
+// ...existing code...
+
+// ...existing code...
 class Cdi {
-}
+  final double? value;
+  Cdi({this.value});
 
-class Nst {
+  factory Cdi.fromMap(dynamic map) => Cdi(
+        value: map == null
+            ? null
+            : (map is num ? map.toDouble() : double.tryParse(map.toString())),
+      );
+
+  dynamic toMap() => value;
 }
+// ...existing code...
+
+// ...existing code...
+class Nst {
+  final int? value;
+  Nst({this.value});
+
+  factory Nst.fromMap(dynamic map) => Nst(value: map as int?);
+
+  dynamic toMap() => value;
+}
+// ...existing code...
 
 class Geometry {
   final String type;

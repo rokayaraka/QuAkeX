@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:earthquake_app/models/earthQuakeModel.dart';
 import 'package:earthquake_app/utils/helper_functions.dart';
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 class AppDataProvider with ChangeNotifier {
   final baseUrl = Uri.parse("https://earthquake.usgs.gov/fdsnws/event/1/query");
@@ -55,5 +58,21 @@ class AppDataProvider with ChangeNotifier {
      _maxRadiusKm = masRadiusKmThreshold;
 
      _setQueryParams();
+     getEarthQuakedata();
+  }
+
+  Future<void> getEarthQuakedata() async{
+    final uri = Uri.https(baseUrl.authority,baseUrl.path,queryParams);
+    try{
+     final response = await http.get(uri);
+     if(response.statusCode==200){
+      final json = jsonDecode(response.body) ;
+      earthQuakeModel=EarthQuakeModel.fromJson(json);
+      print(earthQuakeModel!.features.length);
+      notifyListeners();
+     }
+    }catch(error){
+      print(error.toString());
+    }
   }
 }
