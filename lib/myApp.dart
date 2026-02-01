@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.deepPurple,
           ),
         useMaterial3: true,
-        scaffoldBackgroundColor: Colors.deepPurple,
+        scaffoldBackgroundColor: Colors.greenAccent.shade100,
       ),
 
       builder: EasyLoading.init(),

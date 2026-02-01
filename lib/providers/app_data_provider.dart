@@ -41,6 +41,8 @@ class AppDataProvider with ChangeNotifier {
 
   get getEarthQuakeModel => this.earthQuakeModel;
 
+  bool get hasDataLoaded => earthQuakeModel!=null;
+
   _setQueryParams() {
     queryParams["format"] = "geojson";
     queryParams["starttime"] = _startTime;
