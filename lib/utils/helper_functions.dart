@@ -1,4 +1,7 @@
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
-String getFormttedDateTime (num dt,[String pattern ='yyyy-MM-dd'])=>
-DateFormat.E(pattern).format(DateTime.fromMillisecondsSinceEpoch(dt.toInt()));
+Future<String> getFormttedDateTime (num dt,[String pattern ='yyyy-MM-dd'])async{
+  await initializeDateFormatting();
+return DateFormat(pattern).format(DateTime.fromMillisecondsSinceEpoch(dt.toInt()));
+}

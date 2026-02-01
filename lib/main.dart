@@ -1,7 +1,7 @@
 import 'package:earthquake_app/myApp.dart';
 import 'package:earthquake_app/providers/app_data_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_file.dart';
+
 import 'package:provider/provider.dart';
 
 void main()async{

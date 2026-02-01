@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:earthquake_app/models/earthQuakeModel.dart';
 import 'package:earthquake_app/utils/helper_functions.dart';
@@ -18,7 +19,7 @@ class AppDataProvider with ChangeNotifier {
   String? _currentCity;
   double _masRadiusKmThreshold = 20001.6;
   bool _shouldUseLocation = false;
-  EarthQuakeModel? earthQuakeModel;
+  EarthquakeModel? earthQuakeModel;
 
   get maxRadiusKm => this._maxRadiusKm;
 
@@ -52,9 +53,9 @@ class AppDataProvider with ChangeNotifier {
     queryParams["maxradiuskm"] = "$_maxRadiusKm";
   }
 
-  init(){
-    _startTime =getFormttedDateTime(DateTime.now().subtract(Duration(days: 1)).microsecondsSinceEpoch);
-     _endTime =getFormttedDateTime(DateTime.now().microsecondsSinceEpoch);
+  init() async {
+    _startTime =await getFormttedDateTime(DateTime.now().subtract(Duration(days: 1)).microsecondsSinceEpoch);
+     _endTime =await getFormttedDateTime(DateTime.now().microsecondsSinceEpoch);
      _maxRadiusKm = masRadiusKmThreshold;
 
      _setQueryParams();
@@ -67,12 +68,13 @@ class AppDataProvider with ChangeNotifier {
      final response = await http.get(uri);
      if(response.statusCode==200){
       final json = jsonDecode(response.body) ;
-      earthQuakeModel=EarthQuakeModel.fromJson(json);
-      print(earthQuakeModel!.features.length);
+      log(json.runtimeType.toString());
+      earthQuakeModel=EarthquakeModel.fromJson(json);
+      print(earthQuakeModel!.features!.length);
       notifyListeners();
      }
     }catch(error){
-      print(error.toString());
+      log(error.toString());
     }
   }
 }
