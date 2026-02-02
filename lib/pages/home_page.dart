@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:earthquake_app/providers/app_data_provider.dart';
 import 'package:earthquake_app/utils/helper_functions.dart';
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
                             .earthQuakeModel!
                             .features![index]
                             .properties!;
-                        log("$data");
+                    
                         return Card(
                           color: Colors.green.shade300,
                           child: ListTile(

@@ -47,8 +47,8 @@ class AppDataProvider with ChangeNotifier {
 
   _setQueryParams() {
     queryParams["format"] = "geojson";
-    queryParams["starttime"] = "58055-04-17";
-    queryParams["endtime"] = "58058-01-11";
+    queryParams["starttime"] = _startTime;
+    queryParams["endtime"] = _endTime;
     queryParams["minmagnitude"] = "4";
     queryParams["orderby"] = _orderBy;
     queryParams["limit"] = "500";
@@ -58,8 +58,10 @@ class AppDataProvider with ChangeNotifier {
   }
 
   init() async {
-    _startTime =await getFormttedDateTime(DateTime.now().subtract(Duration(days: 10)).microsecondsSinceEpoch);
-     _endTime =await getFormttedDateTime(DateTime.now().microsecondsSinceEpoch);
+    _startTime = 
+    await getFormttedDateTime(DateTime.now().subtract(Duration(days: 5)).millisecondsSinceEpoch);
+     _endTime = 
+     await getFormttedDateTime(DateTime.now().millisecondsSinceEpoch);
      _maxRadiusKm = masRadiusKmThreshold;
 
      _setQueryParams();
