@@ -3,7 +3,9 @@ import 'dart:developer';
 
 import 'package:earthquake_app/models/earthQuakeModel.dart';
 import 'package:earthquake_app/utils/helper_functions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AppDataProvider with ChangeNotifier {
@@ -45,8 +47,8 @@ class AppDataProvider with ChangeNotifier {
 
   _setQueryParams() {
     queryParams["format"] = "geojson";
-    queryParams["starttime"] = _startTime;
-    queryParams["endtime"] = _endTime;
+    queryParams["starttime"] = "58055-04-17";
+    queryParams["endtime"] = "58058-01-11";
     queryParams["minmagnitude"] = "4";
     queryParams["orderby"] = _orderBy;
     queryParams["limit"] = "500";
@@ -56,7 +58,7 @@ class AppDataProvider with ChangeNotifier {
   }
 
   init() async {
-    _startTime =await getFormttedDateTime(DateTime.now().subtract(Duration(days: 1)).microsecondsSinceEpoch);
+    _startTime =await getFormttedDateTime(DateTime.now().subtract(Duration(days: 10)).microsecondsSinceEpoch);
      _endTime =await getFormttedDateTime(DateTime.now().microsecondsSinceEpoch);
      _maxRadiusKm = masRadiusKmThreshold;
 
@@ -64,8 +66,21 @@ class AppDataProvider with ChangeNotifier {
      getEarthQuakedata();
   }
 
+  Color getAlertColor(String color){
+    return switch(color){
+      "green"=>Colors.green,
+      "yellow"=>Colors.yellow,
+      "orange"=>Colors.orange,
+      _=>Colors.red,
+    };
+  }
+
   Future<void> getEarthQuakedata() async{
     final uri = Uri.https(baseUrl.authority,baseUrl.path,queryParams);
+    log(uri.toString());
+    log(_endTime);
+     log(_startTime);
+    
     try{
      final response = await http.get(uri);
      if(response.statusCode==200){

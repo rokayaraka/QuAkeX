@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:earthquake_app/providers/app_data_provider.dart';
 import 'package:earthquake_app/utils/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +34,7 @@ class _HomePageState extends State<HomePage> {
                             .earthQuakeModel!
                             .features![index]
                             .properties!;
+                        log("$data");
                         return Card(
                           color: Colors.green.shade300,
                           child: ListTile(
@@ -42,7 +45,8 @@ class _HomePageState extends State<HomePage> {
                                 "EEE MM yyyy hh:mm a",
                               ),
                               builder: (context, snapshot) {
-                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
                                   return const Text('Please wait');
                                 } else if (snapshot.hasError) {
                                   return const Text('');
@@ -51,7 +55,16 @@ class _HomePageState extends State<HomePage> {
                                 }
                               },
                             ),
-                            trailing: Chip(label: Text('${data.mag}')),
+                            trailing: Chip(
+                              avatar: data.alert == null
+                                  ? null
+                                  : CircleAvatar(
+                                      backgroundColor: provider.getAlertColor(
+                                        data.alert!,
+                                      ),
+                                    ),
+                              label: Text('${data.mag}'),
+                            ),
                           ),
                         );
                       },
