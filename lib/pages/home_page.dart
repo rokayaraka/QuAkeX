@@ -25,12 +25,12 @@ class _HomePageState extends State<HomePage> {
         title: const Text("QuAkeX"),
         centerTitle: true,
         actions: [
+          IconButton(onPressed: _showSortingDialog, icon: Icon(Icons.sort)),
           IconButton(
-            onPressed: _showSortingDialog, 
-            icon: Icon(Icons.sort),
-          ),
-          IconButton(
-            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsPage())), 
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SettingsPage()),
+            ),
             icon: Icon(Icons.settings),
           ),
         ],
@@ -92,52 +92,51 @@ class _HomePageState extends State<HomePage> {
       builder: (context) => AlertDialog(
         title: Text("Sort By"),
         content: Consumer<AppDataProvider>(
-          builder: (context, provider, child) =>
-              Column(mainAxisSize: MainAxisSize.min, 
-              children: [
-                RadioGroup(
-                  groupValue: provider.orderBy, 
-                  value: "magnitude", 
-                  label: "Magnitude-Desc", 
-                  onChange: (value){
-                    provider.setOrder(value!);
-                  },
-                  ),
-                   RadioGroup(
-                  groupValue: provider.orderBy, 
-                  value: "magnitude-asc", 
-                  label: "Magnitude-Asc", 
-                  onChange: (value){
-                    provider.setOrder(value!);
-                  }
-                  ),
-                 RadioGroup(
-                  groupValue: provider.orderBy, 
-                  value: "time", 
-                  label: "Time-Desc", 
-                  onChange: (value){
-                    provider.setOrder(value!);
-                  }
-                  ),
+          builder: (context, provider, child) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioGroup(
+                groupValue: provider.orderBy,
+                value: "magnitude",
+                label: "Magnitude-Desc",
+                onChange: (value) {
+                  provider.setOrder(value!);
+                },
+              ),
+              RadioGroup(
+                groupValue: provider.orderBy,
+                value: "magnitude-asc",
+                label: "Magnitude-Asc",
+                onChange: (value) {
+                  provider.setOrder(value!);
+                },
+              ),
+              RadioGroup(
+                groupValue: provider.orderBy,
+                value: "time",
+                label: "Time-Desc",
+                onChange: (value) {
+                  provider.setOrder(value!);
+                },
+              ),
 
-                   RadioGroup(
-                  groupValue: provider.orderBy, 
-                  value: "time-asc", 
-                  label: "Time-Asc", 
-                  onChange: (value){
-                    provider.setOrder(value!);
-                  }
-                  ),
+              RadioGroup(
+                groupValue: provider.orderBy,
+                value: "time-asc",
+                label: "Time-Asc",
+                onChange: (value) {
+                  provider.setOrder(value!);
+                },
+              ),
+            ],
+          ),
+        ),
 
-          ],
-        ),
-        ),
-      
         actions: [
           TextButton(
-            onPressed: ()=>Navigator.pop(context), 
+            onPressed: () => Navigator.pop(context),
             child: Text("Close"),
-            ),
+          ),
         ],
       ),
     );
@@ -168,7 +167,6 @@ class RadioGroup extends StatelessWidget {
           onChanged: onChange,
         ),
         Text(label),
-
       ],
     );
   }
