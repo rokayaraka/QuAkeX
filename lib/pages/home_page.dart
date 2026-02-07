@@ -22,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text("QuAkeX"),
         centerTitle: true,
         actions: [
@@ -48,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                             .properties!;
 
                         return Card(
-                          color: Colors.green.shade300,
+                          color: Colors.blueGrey.shade200,
                           child: ListTile(
                             title: Text(data.place ?? data.title ?? "unknown"),
                             subtitle: FutureBuilder<String>(

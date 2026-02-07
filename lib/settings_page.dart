@@ -15,11 +15,14 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Settings")),
+      appBar: AppBar(title: Text("Settings"),
+      centerTitle: true,
+      ),
 
       body: Consumer<AppDataProvider>(
+        
         builder: (context, provider, child) => ListView(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(15.0),
           children: [
             Text(
               "Time Settings",
@@ -27,8 +30,10 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
 
             Card(
-              color: Colors.greenAccent.shade200,
+              elevation: 3,
+              color: Colors.blueGrey.shade200,
               child: Column(
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ListTile(
                     title: Text("Strat Time"),
@@ -58,22 +63,28 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
 
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueGrey.shade50,
+                      foregroundColor: Colors.black,
+                    ),
                     onPressed: () {
                       provider.getEarthQuakedata();
                       showMsg(context, 'Times are updated');
                     },
                     child: Text('Update Time Changes'),
                   ),
+                  SizedBox(height: 20,),
                 ],
               ),
             ),
-
+          SizedBox(height: 20,),
             Text(
               "Location Settings",
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Card(
               child: SwitchListTile(
+                
                 title: Text(provider.currentCity ?? "Your city is Unknown"),
                 subtitle: provider.currentCity == null
                     ? null

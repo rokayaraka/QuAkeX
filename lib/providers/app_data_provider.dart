@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
   import 'package:geolocator/geolocator.dart';
+  import 'package:geocoding/geocoding.dart' as gc;
 
 class AppDataProvider with ChangeNotifier {
   final baseUrl = Uri.parse("https://earthquake.usgs.gov/fdsnws/event/1/query");
@@ -124,12 +125,36 @@ class AppDataProvider with ChangeNotifier {
       final position = await _determinePosition();
       _latitude = position.latitude;
       _longitude=position.longitude;
+      await _getCurrentCity();
       _maxRadiusKm=500;
+      _setQueryParams();
+      getEarthQuakedata();
+    }
+
+    else{
+      _latitude=0.0;
+      _longitude=0.0;
+      _maxRadiusKm=500;
+      _currentCity=null;
       _setQueryParams();
       getEarthQuakedata();
     }
   }
 
+  Future<void> _getCurrentCity() async{
+    try{
+    final placeMarkList =  await gc.placemarkFromCoordinates(_latitude, _longitude);
+    if(placeMarkList.isNotEmpty){
+      final  placeMark = placeMarkList.first;
+      _currentCity = placeMark.locality;
+      notifyListeners();
+    }
+    
+    }catch(error){
+      print(error);
+    }
+
+  }
 
 
 /// Determine the current position of the device.

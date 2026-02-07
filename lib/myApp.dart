@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.deepPurple,
           ),
         useMaterial3: true,
-        scaffoldBackgroundColor: Colors.greenAccent.shade100,
+        scaffoldBackgroundColor: Colors.blue.shade100,
       ),
 
       builder: EasyLoading.init(),
