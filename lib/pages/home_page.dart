@@ -1,4 +1,5 @@
 import 'package:earthquake_app/providers/app_data_provider.dart';
+import 'package:earthquake_app/settings_page.dart';
 import 'package:earthquake_app/utils/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,14 @@ class _HomePageState extends State<HomePage> {
         title: const Text("QuAkeX"),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: _showSortingDialog, icon: Icon(Icons.sort)),
+          IconButton(
+            onPressed: _showSortingDialog, 
+            icon: Icon(Icons.sort),
+          ),
+          IconButton(
+            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>SettingsPage())), 
+            icon: Icon(Icons.settings),
+          ),
         ],
       ),
       body: Consumer<AppDataProvider>(
@@ -46,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                             subtitle: FutureBuilder<String>(
                               future: getFormttedDateTime(
                                 data.time!,
-                                "EEE MM yyyy hh:mm a",
+                                "EEE dd MMM yyyy hh:mm a",
                               ),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
