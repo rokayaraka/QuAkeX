@@ -45,6 +45,13 @@ class AppDataProvider with ChangeNotifier {
 
   bool get hasDataLoaded => earthQuakeModel!=null;
 
+  void setOrder(String value){
+    _orderBy = value;
+    notifyListeners();
+    _setQueryParams();
+    getEarthQuakedata();
+  }
+
   _setQueryParams() {
     queryParams["format"] = "geojson";
     queryParams["starttime"] = _startTime;
@@ -57,7 +64,7 @@ class AppDataProvider with ChangeNotifier {
     queryParams["maxradiuskm"] = "$_maxRadiusKm";
   }
 
-  init() async {
+  void init() async {
     _startTime = 
     await getFormttedDateTime(DateTime.now().subtract(Duration(days: 5)).millisecondsSinceEpoch);
      _endTime = 
